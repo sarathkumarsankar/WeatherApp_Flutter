@@ -26,7 +26,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
   }
 
   Future<Map<String, dynamic>> getWeatherReport() async {
-    print("getWeatherReport cllaed");
     try {
       var res = await http.get(Uri.parse(
           "https://api.openweathermap.org/data/2.5/forecast?q=$location&APPID=$appID"));
@@ -41,13 +40,16 @@ class _WeatherScreenState extends State<WeatherScreen> {
     }
   }
 
+double fahrenheitToCelsius(double fahrenheit) {
+  return (fahrenheit - 32) * 5 / 9;
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Weather App',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        title: Text(
+          location,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
         actions: [
           IconButton(
@@ -68,6 +70,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
           }
           final mainData = snapshot.data!['list'];
           final cuurentTemperature = mainData[0]['main']['temp'];
+          final celsius = fahrenheitToCelsius(cuurentTemperature);
           final skyCondition = mainData[0]['weather'][0]['main'];
           final humidity = mainData[0]['main']['humidity'];
           final windSpeed = mainData[0]['wind']['speed'];
@@ -95,7 +98,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           children: [
                             const SizedBox(height: 16),
                             Text(
-                              cuurentTemperature.toString(),
+                              "$cuurentTemperature°F",
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
