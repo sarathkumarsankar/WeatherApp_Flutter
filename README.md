@@ -1,8 +1,20 @@
-# weather_app
+# Weather_app
 
-A new Flutter project.
+This weather app fetches real-time weather reports using the OpenWeather API. It provides users with up-to-date information on current weather conditions for a specified location.
 
-## Getting Started
+## Features
+
+- Real-time weather updates
+- Detailed weather information
+- User-friendly interface
+- OpenWeather API integration
+
+### Prerequisites
+
+- OpenWeather API key (get yours [here](https://openweathermap.org/api))
+
+![ezgif com-video-to-gif-converted](https://github.com/sarathkumarsankar/WeatherApp_Flutter/assets/12977299/7d01bf79-6409-4127-8c87-ca996ce24fe3)
+
 
 This project is a starting point for a Flutter application.
 
