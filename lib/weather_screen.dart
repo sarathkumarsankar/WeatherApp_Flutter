@@ -40,9 +40,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
     }
   }
 
-double fahrenheitToCelsius(double fahrenheit) {
-  return (fahrenheit - 32) * 5 / 9;
-}
+  double fahrenheitToCelsius(double fahrenheit) {
+    return (fahrenheit - 32) * 5 / 9;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,111 +78,114 @@ double fahrenheitToCelsius(double fahrenheit) {
           final pressure = mainData[0]['main']['pressure'];
           return Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:
-                  // PlaceHolder 1
-                  [
-                SizedBox(
-                  height: 200,
-                  width: double.infinity,
-                  child: Card(
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 16),
-                            Text(
-                              "$cuurentTemperature°F",
-                              style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children:
+                    // PlaceHolder 1
+                    [
+                  SizedBox(
+                    height: 200,
+                    width: double.infinity,
+                    child: Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 16),
+                              Text(
+                                "$cuurentTemperature°F",
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            const Spacer(),
-                            const Icon(
-                              Icons.cloud,
-                              size: 50,
-                            ),
-                            const Spacer(),
-                            Text(
-                              skyCondition,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
+                              const Spacer(),
+                              const Icon(
+                                Icons.cloud,
+                                size: 50,
                               ),
-                            ),
-                            const Spacer(),
-                          ],
+                              const Spacer(),
+                              Text(
+                                skyCondition,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              const Spacer(),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                // PlaceHolder 2
-                const SizedBox(height: 10),
-                const Text(
-                  "Weather Forecast",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 6),
-                SizedBox(
-                  height: 130,
-                  child: ListView.builder(
-                    itemBuilder: ((context, index) {
-                      final time =
-                          DateTime.parse(mainData[index + 1]['dt_txt']);
-                      final currentSkyCondition =
-                          mainData[index + 1]['weather'][0]['main'];
-
-                      return HourlyForeCastItem(
-                        climate: mainData[index + 1]['main']['temp'].toString(),
-                        time: DateFormat.jm().format(time),
-                        skyIcon: currentSkyCondition == "Rain" ||
-                                currentSkyCondition == "Clouds"
-                            ? Icons.cloud
-                            : Icons.sunny,
-                      );
-                    }),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 10,
+                  // PlaceHolder 2
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Weather Forecast",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                ),
-                // PlaceHolder 3
-                const SizedBox(height: 10),
-                const Text(
-                  "Additional information",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        AdditionalInformationItem(
-                          info: "Humidity",
-                          skyIcon: Icons.water_drop,
-                          value: humidity.toString(),
-                        ),
-                        AdditionalInformationItem(
-                          info: "Wind Speed",
-                          skyIcon: Icons.air,
-                          value: windSpeed.toString(),
-                        ),
-                        AdditionalInformationItem(
-                          info: "Pressure",
-                          skyIcon: Icons.beach_access,
-                          value: pressure.toString(),
-                        ),
-                      ],
-                    )),
-              ],
+                  const SizedBox(height: 6),
+                  SizedBox(
+                    height: 130,
+                    child: ListView.builder(
+                      itemBuilder: ((context, index) {
+                        final time =
+                            DateTime.parse(mainData[index + 1]['dt_txt']);
+                        final currentSkyCondition =
+                            mainData[index + 1]['weather'][0]['main'];
+
+                        return HourlyForeCastItem(
+                          climate:
+                              mainData[index + 1]['main']['temp'].toString(),
+                          time: DateFormat.jm().format(time),
+                          skyIcon: currentSkyCondition == "Rain" ||
+                                  currentSkyCondition == "Clouds"
+                              ? Icons.cloud
+                              : Icons.sunny,
+                        );
+                      }),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 10,
+                    ),
+                  ),
+                  // PlaceHolder 3
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Additional information",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                      width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          AdditionalInformationItem(
+                            info: "Humidity",
+                            skyIcon: Icons.water_drop,
+                            value: humidity.toString(),
+                          ),
+                          AdditionalInformationItem(
+                            info: "Wind Speed",
+                            skyIcon: Icons.air,
+                            value: windSpeed.toString(),
+                          ),
+                          AdditionalInformationItem(
+                            info: "Pressure",
+                            skyIcon: Icons.beach_access,
+                            value: pressure.toString(),
+                          ),
+                        ],
+                      )),
+                ],
+              ),
             ),
           );
         },
